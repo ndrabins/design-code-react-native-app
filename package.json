@@ -7,12 +7,21 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "apollo-boost": "^0.3.1",
     "expo": "^32.0.0",
-    "react": "16.5.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz"
+    "graphql": "^14.3.0",
+    "react": "^16.5.0",
+    "react-apollo": "^2.5.5",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-showdown": "^0.4.0",
+    "react-navigation": "^3.11.0",
+    "react-redux": "^7.0.3",
+    "redux": "^4.0.1",
+    "styled-components": "^4.2.0"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.0.0"
+    "babel-preset-expo": "^5.0.0",
+    "schedule": "^0.4.0"
   },
   "private": true
 }
