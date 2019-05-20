@@ -9,13 +9,14 @@ import {
   StatusBar,
 } from "react-native";
 import Card from "../components/Card";
-import { Icon } from "expo";
 import { NotificationIcon } from "../components/Icons";
 import Logo from "../components/Logo";
 import Course from "../components/Course";
 import Menu from "../components/Menu";
 import Avatar from "../components/Avatar";
 import { connect } from "react-redux";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
 
 function mapStateToProps(state) {
   return { action: state.action, name: state.name };
@@ -29,6 +30,39 @@ function mapDispatchToProps(dispatch) {
       }),
   };
 }
+
+const CardsQuery = gql`
+  {
+    cardsCollection {
+      items {
+        title
+        subtitle
+        image {
+          title
+          description
+          contentType
+          fileName
+          size
+          url
+          width
+          height
+        }
+        subtitle
+        caption
+        logo {
+          title
+          description
+          contentType
+          fileName
+          size
+          url
+          width
+          height
+        }
+      }
+    }
+  }
+`;
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -121,32 +155,38 @@ class HomeScreen extends React.Component {
                 style={{ paddingBottom: 30 }}
                 showsHorizontalScrollIndicator={false}
               >
-                {cards.map((card, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    onPress={() => {
-                      this.props.navigation.push("Section", {
-                        section: card,
-                      });
-                    }}
-                  >
-                    <Card
-                      title={card.title}
-                      image={card.image}
-                      subtitle={card.subtitle}
-                      caption={card.caption}
-                      logo={card.logo}
-                    />
-                  </TouchableOpacity>
-                ))}
+                <Query query={CardsQuery}>
+                  {({ loading, error, data }) => {
+                    if (loading) return <Message>Loading...</Message>;
+                    if (error) return <Message>Error...</Message>;
+                    return (
+                      <CardsContainer>
+                        {data.cardsCollection.items.map((card, index) => (
+                          <TouchableOpacity
+                            key={index}
+                            onPress={() => {
+                              this.props.navigation.push("Section", {
+                                section: card,
+                              });
+                            }}
+                          >
+                            <Card
+                              title={card.title}
+                              image={{ uri: card.image.url }}
+                              caption={card.caption}
+                              logo={{ uri: card.logo.url }}
+                              subtitle={card.subtitle}
+                            />
+                          </TouchableOpacity>
+                        ))}
+                      </CardsContainer>
+                    );
+                  }}
+                </Query>
               </ScrollView>
 
               <Subtitle> Popular Courses </Subtitle>
-              <ScrollView
-                horizontal={true}
-                style={{ paddingBottom: 30 }}
-                showsHorizontalScrollIndicator={false}
-              >
+              <CoursesContainer>
                 {courses.map((course, index) => (
                   <Course
                     key={index}
@@ -159,7 +199,7 @@ class HomeScreen extends React.Component {
                     caption={course.caption}
                   />
                 ))}
-              </ScrollView>
+              </CoursesContainer>
             </ScrollView>
           </SafeAreaView>
         </AnimatedContainer>
@@ -176,6 +216,24 @@ export default connect(
 const RootView = styled.View`
   background: black;
   flex: 1;
+`;
+
+const Message = styled.Text`
+  margin: 20px;
+  color: #b8bece;
+  font-size: 15px;
+  font-weight: 500;
+`;
+
+const CardsContainer = styled.View`
+  flex-direction: row;
+`;
+
+const CoursesContainer = styled.View`
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 const Container = styled.View`
@@ -241,36 +299,36 @@ const logos = [
   },
 ];
 
-const cards = [
-  {
-    title: "React Native for Designers",
-    image: require("../assets/background11.jpg"),
-    subtitle: "React Native",
-    caption: "1 of 12 sections",
-    logo: require("../assets/logo-react.png"),
-  },
-  {
-    title: "Styled Components",
-    image: require("../assets/background12.jpg"),
-    subtitle: "React Native",
-    caption: "2 of 12 sections",
-    logo: require("../assets/logo-react.png"),
-  },
-  {
-    title: "Props and Icons",
-    image: require("../assets/background13.jpg"),
-    subtitle: "React Native",
-    caption: "3 of 12 sections",
-    logo: require("../assets/logo-react.png"),
-  },
-  {
-    title: "Static Data and Loop",
-    image: require("../assets/background14.jpg"),
-    subtitle: "React Native",
-    caption: "4 of 12 sections",
-    logo: require("../assets/logo-react.png"),
-  },
-];
+// const cards = [
+//   {
+//     title: "React Native for Designers",
+//     image: require("../assets/background11.jpg"),
+//     subtitle: "React Native",
+//     caption: "1 of 12 sections",
+//     logo: require("../assets/logo-react.png"),
+//   },
+//   {
+//     title: "Styled Components",
+//     image: require("../assets/background12.jpg"),
+//     subtitle: "React Native",
+//     caption: "2 of 12 sections",
+//     logo: require("../assets/logo-react.png"),
+//   },
+//   {
+//     title: "Props and Icons",
+//     image: require("../assets/background13.jpg"),
+//     subtitle: "React Native",
+//     caption: "3 of 12 sections",
+//     logo: require("../assets/logo-react.png"),
+//   },
+//   {
+//     title: "Static Data and Loop",
+//     image: require("../assets/background14.jpg"),
+//     subtitle: "React Native",
+//     caption: "4 of 12 sections",
+//     logo: require("../assets/logo-react.png"),
+//   },
+// ];
 
 const courses = [
   {

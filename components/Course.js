@@ -20,26 +20,26 @@ const Course = props => (
 export default Course;
 
 const Container = styled.View`
-  width: 335px;
+  flex: 1;
   height: 335px;
-  border-radius: 14px;
   background: white;
+  margin: 10px 10px;
+  border-radius: 14px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-  margin: 15px 10px;
 `;
 
 const Cover = styled.View`
   height: 260px;
-  border-top-right-radius: 14px;
   border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
   overflow: hidden;
   justify-content: flex-end;
 `;
 
 const Image = styled.Image`
-  position: absolute;
   width: 100%;
   height: 100%;
+  position: absolute;
 `;
 
 const Logo = styled.Image`
@@ -56,15 +56,15 @@ const Title = styled.Text`
   color: white;
   font-weight: 600;
   margin-top: 4px;
-  width: 170px;
   margin-bottom: 20px;
   margin-left: 20px;
+  width: 170px;
 `;
 
 const Subtitle = styled.Text`
   font-size: 15px;
-  color: rgba(255, 255, 255, 0.8);
   font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
   text-transform: uppercase;
   margin-left: 20px;
 `;
@@ -88,7 +88,6 @@ const Caption = styled.Text`
   font-size: 14px;
   color: #3c4560;
   font-weight: 500;
-  max-width: 260px;
 `;
 
 const Author = styled.Text`

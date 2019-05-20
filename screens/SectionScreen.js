@@ -25,7 +25,7 @@ class SectionScreen extends React.Component {
       <Container>
         <StatusBar hidden />
         <Cover>
-          <Image source={section.image} />
+          <Image source={{ uri: section.image.url }} />
           <TouchableOpacity
             onPress={() => {
               this.props.navigation.goBack();
@@ -49,7 +49,7 @@ class SectionScreen extends React.Component {
           <Caption>{section.caption}</Caption>
         </Cover>
         <Wrapper>
-          <Logo source={section.logo} />
+          <Logo source={{ uri: section.logo.url }} />
           <Subtitle>{section.subtitle}</Subtitle>
         </Wrapper>
       </Container>
