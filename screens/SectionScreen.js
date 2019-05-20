@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from "react-native";
 import Markdown from "react-native-showdown";
+// import MarkdownRenderer from "../components/MarkdownRenderer";
 
 class SectionScreen extends React.Component {
   static navigationOptions = {
@@ -79,28 +80,18 @@ class SectionScreen extends React.Component {
               scalesPageToFit={false}
               scrollEnabled={false}
             />
+            {/* <MarkdownRenderer
+              body={section.content}
+              pureCSS={htmlStyles}
+              scalesPageToFit={false}
+              scrollEnabled={false}
+            /> */}
           </Content>
         </Container>
       </ScrollView>
     );
   }
 }
-
-const markdownStyles = {
-  heading1: {
-    fontSize: 24,
-    color: "purple",
-  },
-  link: {
-    color: "pink",
-  },
-  mailTo: {
-    color: "orange",
-  },
-  text: {
-    color: "#555555",
-  },
-};
 
 export default SectionScreen;
 
@@ -126,8 +117,8 @@ const Subtitle = styled.Text`
 `;
 
 const Content = styled.View`
-  height: 1000;
-  /* flex: 1; */
+  height: 1000px;
+  flex: 1;
   padding: 12px;
 `;
 
@@ -191,6 +182,10 @@ const htmlStyles = `
       font-weight: normal;
       color: #3c4560;
       line-height: 24px;
+    }
+
+    body {
+      height: 400px;
     }
 
     h2 {
