@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Animated,
   Easing,
-  StatusBar
+  StatusBar,
 } from "react-native";
 import Card from "../components/Card";
 import { Icon } from "expo";
@@ -14,25 +14,26 @@ import { NotificationIcon } from "../components/Icons";
 import Logo from "../components/Logo";
 import Course from "../components/Course";
 import Menu from "../components/Menu";
+import Avatar from "../components/Avatar";
 import { connect } from "react-redux";
 
 function mapStateToProps(state) {
-  return { action: state.action };
+  return { action: state.action, name: state.name };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     openMenu: () =>
       dispatch({
-        type: "OPEN_MENU"
-      })
+        type: "OPEN_MENU",
+      }),
   };
 }
 
 class HomeScreen extends React.Component {
   state = {
     scale: new Animated.Value(1),
-    opacity: new Animated.Value(1)
+    opacity: new Animated.Value(1),
   };
 
   componentDidMount() {
@@ -48,10 +49,10 @@ class HomeScreen extends React.Component {
       Animated.timing(this.state.scale, {
         toValue: 0.9,
         duration: 300,
-        easing: Easing.in()
+        easing: Easing.in(),
       }).start();
       Animated.spring(this.state.opacity, {
-        toValue: 0.5
+        toValue: 0.5,
       }).start();
 
       StatusBar.setBarStyle("light-content", true);
@@ -61,10 +62,10 @@ class HomeScreen extends React.Component {
       Animated.timing(this.state.scale, {
         toValue: 1,
         duration: 300,
-        easing: Easing.in()
+        easing: Easing.in(),
       }).start();
       Animated.spring(this.state.opacity, {
-        toValue: 1
+        toValue: 1,
       }).start();
 
       StatusBar.setBarStyle("dark-content", true);
@@ -78,7 +79,7 @@ class HomeScreen extends React.Component {
         <AnimatedContainer
           style={{
             transform: [{ scale: this.state.scale }],
-            opacity: this.state.opacity
+            opacity: this.state.opacity,
           }}
         >
           <SafeAreaView>
@@ -88,10 +89,10 @@ class HomeScreen extends React.Component {
                   onPress={this.props.openMenu}
                   style={{ position: "absolute", top: 0, left: 0 }}
                 >
-                  <Avatar source={require("../assets/avatar.jpg")} />
+                  <Avatar />
                 </TouchableOpacity>
                 <Title>Welcome Back,</Title>
-                <Name>Noah</Name>
+                <Name>{this.props.name}</Name>
                 <NotificationIcon
                   style={{ position: "absolute", right: 20, top: 5 }}
                 />
@@ -101,7 +102,7 @@ class HomeScreen extends React.Component {
                   flexDirection: "row",
                   padding: 20,
                   paddingLeft: 12,
-                  paddingTop: 30
+                  paddingTop: 30,
                 }}
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -191,14 +192,6 @@ const TitleBar = styled.View`
   padding-left: 80px;
 `;
 
-const Avatar = styled.Image`
-  width: 44px;
-  height: 44px;
-  background: black;
-  border-radius: 22px;
-  margin-left: 20px;
-`;
-
 const Subtitle = styled.Text`
   color: #b8bece;
   font-weight: 600;
@@ -211,28 +204,28 @@ const Subtitle = styled.Text`
 const logos = [
   {
     image: require("../assets/logo-framerx.png"),
-    text: "Framer X"
+    text: "Framer X",
   },
   {
     image: require("../assets/logo-figma.png"),
-    text: "Figma"
+    text: "Figma",
   },
   {
     image: require("../assets/logo-studio.png"),
-    text: "Studio"
+    text: "Studio",
   },
   {
     image: require("../assets/logo-react.png"),
-    text: "React"
+    text: "React",
   },
   {
     image: require("../assets/logo-swift.png"),
-    text: "Swift"
+    text: "Swift",
   },
   {
     image: require("../assets/logo-sketch.png"),
-    text: "Sketch"
-  }
+    text: "Sketch",
+  },
 ];
 
 const cards = [
@@ -241,29 +234,29 @@ const cards = [
     image: require("../assets/background11.jpg"),
     subtitle: "React Native",
     caption: "1 of 12 sections",
-    logo: require("../assets/logo-react.png")
+    logo: require("../assets/logo-react.png"),
   },
   {
     title: "Styled Components",
     image: require("../assets/background12.jpg"),
     subtitle: "React Native",
     caption: "2 of 12 sections",
-    logo: require("../assets/logo-react.png")
+    logo: require("../assets/logo-react.png"),
   },
   {
     title: "Props and Icons",
     image: require("../assets/background13.jpg"),
     subtitle: "React Native",
     caption: "3 of 12 sections",
-    logo: require("../assets/logo-react.png")
+    logo: require("../assets/logo-react.png"),
   },
   {
     title: "Static Data and Loop",
     image: require("../assets/background14.jpg"),
     subtitle: "React Native",
     caption: "4 of 12 sections",
-    logo: require("../assets/logo-react.png")
-  }
+    logo: require("../assets/logo-react.png"),
+  },
 ];
 
 const courses = [
@@ -274,7 +267,7 @@ const courses = [
     logo: require("../assets/logo-studio.png"),
     author: "Meng To",
     avatar: require("../assets/avatar.jpg"),
-    caption: "Design an interactive prototype"
+    caption: "Design an interactive prototype",
   },
   {
     title: "React for Designers",
@@ -283,7 +276,7 @@ const courses = [
     logo: require("../assets/logo-react.png"),
     author: "Meng To",
     avatar: require("../assets/avatar.jpg"),
-    caption: "Learn to design and code a React site"
+    caption: "Learn to design and code a React site",
   },
   {
     title: "Design and Code with Framer X",
@@ -292,7 +285,7 @@ const courses = [
     logo: require("../assets/logo-framerx.png"),
     author: "Meng To",
     avatar: require("../assets/avatar.jpg"),
-    caption: "Create powerful design and code components for your app"
+    caption: "Create powerful design and code components for your app",
   },
   {
     title: "Design System in Figma",
@@ -302,6 +295,6 @@ const courses = [
     author: "Meng To",
     avatar: require("../assets/avatar.jpg"),
     caption:
-      "Complete guide to designing a site using a collaborative design tool"
-  }
+      "Complete guide to designing a site using a collaborative design tool",
+  },
 ];
