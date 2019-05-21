@@ -6,10 +6,15 @@ import { Icon } from "expo";
 import MenuItem from "./MenuItem";
 
 const screenHeight = Dimensions.get("window").height;
+const screenWidth = Dimensions.get("window").width;
+var cardWidth = screenWidth;
+if (screenWidth > 500) {
+  cardWidth = 500;
+}
 
 class Menu extends React.Component {
   state = {
-    top: new Animated.Value(screenHeight)
+    top: new Animated.Value(screenHeight),
   };
 
   componentDidMount() {
@@ -25,13 +30,13 @@ class Menu extends React.Component {
 
     if (this.props.action === "openMenu") {
       Animated.spring(top, {
-        toValue: 54
+        toValue: 54,
       }).start();
     }
 
     if (this.props.action === "closeMenu") {
       Animated.spring(top, {
-        toValue: screenHeight
+        toValue: screenHeight,
       }).start();
     }
   };
@@ -53,7 +58,7 @@ class Menu extends React.Component {
             top: 120,
             left: "50%",
             marginLeft: -22,
-            zIndex: 1
+            zIndex: 1,
           }}
         >
           <CloseView>
@@ -83,8 +88,8 @@ function mapDispatchToProps(dispatch) {
   return {
     closeMenu: () =>
       dispatch({
-        type: "CLOSE_MENU"
-      })
+        type: "CLOSE_MENU",
+      }),
   };
 }
 
@@ -96,7 +101,8 @@ export default connect(
 const Container = styled.View`
   position: absolute;
   background: white;
-  width: 100%;
+  width: ${cardWidth};
+  align-self: center;
   height: 100%;
   z-index: 100;
   border-radius: 10px;
@@ -150,21 +156,21 @@ const items = [
   {
     icon: "ios-settings",
     title: "Account",
-    text: "settings"
+    text: "settings",
   },
   {
     icon: "ios-card",
     title: "Billing",
-    text: "payments"
+    text: "payments",
   },
   {
     icon: "ios-compass",
     title: "Learn React",
-    text: "start course"
+    text: "start course",
   },
   {
     icon: "ios-exit",
     title: "Log out",
-    text: "see you soon!"
-  }
+    text: "see you soon!",
+  },
 ];
